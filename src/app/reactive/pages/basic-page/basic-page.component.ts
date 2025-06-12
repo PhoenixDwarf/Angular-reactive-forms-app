@@ -36,8 +36,10 @@ export class BasicPageComponent {
 
   //This wont work in zoneless applications
   isValidField(fieldName: string): boolean | null {
-    console.log('executed');
-    return !!this.myForm.controls[fieldName].errors;
+    return (
+      this.myForm.controls[fieldName].errors &&
+      this.myForm.controls[fieldName].touched
+    );
   }
 
   //This wont work in zoneless applications
@@ -59,5 +61,19 @@ export class BasicPageComponent {
       }
     }
     return null;
+  }
+
+  submit(): void {
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
+    console.log('Form submitted successfully', this.myForm.value);
+
+    this.myForm.reset({
+      price: 0,
+      inStorage: 0,
+    });
   }
 }
