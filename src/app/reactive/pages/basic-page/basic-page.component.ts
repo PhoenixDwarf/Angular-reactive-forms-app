@@ -6,6 +6,7 @@ import {
   Validators,
   FormGroup,
 } from '@angular/forms';
+import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
   selector: 'app-basic-page',
@@ -13,11 +14,7 @@ import {
   templateUrl: './basic-page.component.html',
 })
 export class BasicPageComponent {
-  // myForm = new FormGroup({
-  //   name: new FormControl(''),
-  //   price: new FormControl(0),
-  //   inStorage: new FormControl(0),
-  // });
+  formUtils = FormUtils;
 
   private readonly fb = inject(FormBuilder);
 
@@ -34,35 +31,6 @@ export class BasicPageComponent {
     inStorage: [0, [Validators.required, Validators.min(0)]],
   });
 
-  //This wont work in zoneless applications
-  isValidField(fieldName: string): boolean | null {
-    return (
-      this.myForm.controls[fieldName].errors &&
-      this.myForm.controls[fieldName].touched
-    );
-  }
-
-  //This wont work in zoneless applications
-  getFieldError(fieldName: string): string | null {
-    const field = this.myForm.controls[fieldName];
-
-    if (!field) return null;
-
-    const errors = field.errors ?? {};
-
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-          return 'Este campo es requerido';
-        case 'minlength':
-          return `El campo debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
-        case 'min':
-          return `El valor mínimo es ${errors['min'].min}`;
-      }
-    }
-    return null;
-  }
-
   submit(): void {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
@@ -76,4 +44,53 @@ export class BasicPageComponent {
       inStorage: 0,
     });
   }
+
+  // This is an alternative way to create the form
+  // -----------------------
+
+  // myForm = new FormGroup({
+  //   name: new FormControl(''),
+  //   price: new FormControl(0),
+  //   inStorage: new FormControl(0),
+  // });
+
+  // -----------------------
+
+  // This wont work in zoneless applications
+  // Also commented since this was moved to FormUtils
+  // -----------------------
+
+  // isValidField(fieldName: string): boolean | null {
+  //   return (
+  //     this.myForm.controls[fieldName].errors &&
+  //     this.myForm.controls[fieldName].touched
+  //   );
+  // }
+
+  // -----------------------
+
+  // This wont work in zoneless applications
+  // Also commented since this was moved to FormUtils
+  // -----------------------
+
+  // getFieldError(fieldName: string): string | null {
+  //   const field = this.myForm.controls[fieldName];
+
+  //   if (!field) return null;
+
+  //   const errors = field.errors ?? {};
+
+  //   for (const key of Object.keys(errors)) {
+  //     switch (key) {
+  //       case 'required':
+  //         return 'Este campo es requerido';
+  //       case 'minlength':
+  //         return `El campo debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
+  //       case 'min':
+  //         return `El valor mínimo es ${errors['min'].min}`;
+  //     }
+  //   }
+  //   return null;
+  // }
+  // -----------------------
 }
