@@ -4,7 +4,7 @@
 <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="submit()">
   <!-- Nombre -->
   <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label">Nombre</label>
+    <label for="name" class="col-sm-3 col-form-label">Nombre</label>
     <div class="col-sm-9">
       <input
         class="form-control"
@@ -21,7 +21,7 @@
 
   <!-- Agregar Favorito -->
   <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label">Agregar</label>
+    <label for="newFavorite" class="col-form-label">Agregar</label>
     <div class="col-sm-9">
       <div class="input-group">
         <input
