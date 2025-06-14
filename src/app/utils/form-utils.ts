@@ -40,6 +40,8 @@ export class FormUtils {
           return `El campo debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
         case 'min':
           return `El valor mínimo es ${errors['min'].min}`;
+        case 'email':
+          return 'El correo electrónico no es válido';
       }
     }
     return null;
