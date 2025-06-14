@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 export class FormUtils {
   //Expresiones regulares
@@ -9,13 +9,29 @@ export class FormUtils {
     );
   }
 
+  static isValidFieldInArray(formArray: FormArray, index: number) {
+    return (
+      formArray.controls[index].errors && formArray.controls[index].touched
+    );
+  }
+
   static getFieldError(form: FormGroup, fieldName: string): string | null {
     const field = form.controls[fieldName];
-
     if (!field) return null;
+    return this.getErrorMessage(field);
+  }
 
+  static getFieldErrorInArray(
+    formArray: FormArray,
+    index: number
+  ): string | null {
+    const field = formArray.controls[index];
+    if (!field) return null;
+    return this.getErrorMessage(field);
+  }
+
+  private static getErrorMessage(field: AbstractControl): string | null {
     const errors = field.errors ?? {};
-
     for (const key of Object.keys(errors)) {
       switch (key) {
         case 'required':
