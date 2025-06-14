@@ -1,7 +1,9 @@
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 export class FormUtils {
-  //TODO Expresiones regulares
+  static readonly namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static readonly emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static readonly notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
 
   static isValidField(form: FormGroup, fieldName: string): boolean | null {
     return (
@@ -40,8 +42,27 @@ export class FormUtils {
           return `El campo debe tener al menos ${errors['minlength'].requiredLength} caracteres`;
         case 'min':
           return `El valor mínimo es ${errors['min'].min}`;
-        case 'email':
-          return 'El correo electrónico no es válido';
+        case 'pattern':
+          if (
+            errors['pattern'].requiredPattern.includes(FormUtils.namePattern)
+          ) {
+            return 'El formato debe ser "Nombre Apellido"';
+          }
+          if (
+            errors['pattern'].requiredPattern.includes(FormUtils.emailPattern)
+          ) {
+            return 'El formato del correo electrónico no es válido';
+          }
+          if (
+            errors['pattern'].requiredPattern.includes(
+              FormUtils.notOnlySpacesPattern
+            )
+          ) {
+            return 'El campo no puede contener solo espacios';
+          }
+          return 'El formato del campo no es válido';
+        default:
+          return `Error desconocido: ${key}`;
       }
     }
     return null;
