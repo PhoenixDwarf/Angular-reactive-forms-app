@@ -1,4 +1,17 @@
-import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormGroup,
+  ValidationErrors,
+} from '@angular/forms';
+
+async function sleep() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2500);
+  });
+}
 
 export class FormUtils {
   static readonly namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
@@ -61,6 +74,8 @@ export class FormUtils {
             return 'El campo no puede contener solo espacios';
           }
           return 'El formato del campo no es válido';
+        case 'emailTaken':
+          return 'El correo electrónico ya está en uso';
         default:
           return `Error desconocido: ${key}`;
       }
@@ -75,5 +90,15 @@ export class FormUtils {
 
       return fieldValue1 === fieldValue2 ? null : { fieldsNotEqual: true };
     };
+  }
+
+  static async checkingServerResponse(
+    control: AbstractControl
+  ): Promise<ValidationErrors | null> {
+    await sleep();
+    const formValue = control.value;
+
+    if (formValue === 'hola@mundo.com') return { emailTaken: true };
+    return null;
   }
 }
