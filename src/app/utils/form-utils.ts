@@ -5,13 +5,13 @@ export class FormUtils {
   static readonly emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   static readonly notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
 
-  static isValidField(form: FormGroup, fieldName: string): boolean | null {
+  static fieldHasErrors(form: FormGroup, fieldName: string): boolean | null {
     return (
       !!form.controls[fieldName].errors && form.controls[fieldName].touched
     );
   }
 
-  static isValidFieldInArray(formArray: FormArray, index: number) {
+  static fieldHasErrorsInArray(formArray: FormArray, index: number) {
     return (
       formArray.controls[index].errors && formArray.controls[index].touched
     );
@@ -66,5 +66,14 @@ export class FormUtils {
       }
     }
     return null;
+  }
+
+  static equalValues(field1Name: string, field2Name: string) {
+    return (control: AbstractControl) => {
+      const fieldValue1 = control.get(field1Name)?.value;
+      const fieldValue2 = control.get(field2Name)?.value;
+
+      return fieldValue1 === fieldValue2 ? null : { fieldsNotEqual: true };
+    };
   }
 }

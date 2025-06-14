@@ -11,7 +11,7 @@
         placeholder="Nombre de la persona"
         formControlName="name"
       />
-      @if(formUtils.isValidField(myForm, 'name')) {
+      @if(formUtils.fieldHasErrors(myForm, 'name')) {
       <span class="form-text text-danger">
         {{ formUtils.getFieldError(myForm, "name") }}
       </span>
@@ -62,13 +62,13 @@
             Eliminar
           </button>
         </div>
-        @if(formUtils.isValidFieldInArray(favoriteGames, i)) {
+        @if(formUtils.fieldHasErrorsInArray(favoriteGames, i)) {
         <span class="form-text text-danger">
           {{ formUtils.getFieldErrorInArray(favoriteGames, i) }}
         </span>
         }
       </div>
-      } @if(formUtils.isValidField(myForm, 'favoriteGames')) {
+      } @if(formUtils.fieldHasErrors(myForm, 'favoriteGames')) {
       <span class="form-text text-danger"> Debe tener al menos 3 juegos </span>
       }
     </div>

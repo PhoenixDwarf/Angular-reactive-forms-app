@@ -14,7 +14,7 @@
             placeholder="Nombre del producto"
             formControlName="name"
           />
-          @if (formUtils.isValidField(myForm, 'name')) {
+          @if (formUtils.fieldHasErrors(myForm, 'name')) {
           <span class="form-text text-danger">
             {{ formUtils.getFieldError(myForm, "name") }}
           </span>
@@ -32,7 +32,7 @@
             placeholder="Precio del producto"
             formControlName="price"
           />
-          @if (formUtils.isValidField(myForm, 'price')) {
+          @if (formUtils.fieldHasErrors(myForm, 'price')) {
           <span class="form-text text-danger">
             {{ formUtils.getFieldError(myForm, "price") }}
           </span>
@@ -53,7 +53,7 @@
             formControlName="inStorage"
           />
 
-          @if (formUtils.isValidField(myForm, 'inStorage')) {
+          @if (formUtils.fieldHasErrors(myForm, 'inStorage')) {
           <span class="form-text text-danger">
             {{ formUtils.getFieldError(myForm, "inStorage") }}
           </span>

@@ -61,14 +61,14 @@
           id="flexCheckDefault"
           formControlName="termsAndConditions"
           [class.border-danger]="
-            formUtils.isValidField(myForm, 'termsAndConditions')
+            formUtils.fieldHasErrors(myForm, 'termsAndConditions')
           "
         />
         <label class="form-check-label" for="flexCheckDefault">
           Términos y condiciones de uso
         </label>
       </div>
-      @if(formUtils.isValidField(myForm, 'termsAndConditions')) {
+      @if(formUtils.fieldHasErrors(myForm, 'termsAndConditions')) {
       <span class="form-text text-danger">
         Debe de aceptar las condiciones de uso
       </span>
