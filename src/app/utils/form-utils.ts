@@ -76,6 +76,8 @@ export class FormUtils {
           return 'El formato del campo no es válido';
         case 'emailTaken':
           return 'El correo electrónico ya está en uso';
+        case 'isStrider':
+          return 'El nombre "Strider" no está permitido';
         default:
           return `Error desconocido: ${key}`;
       }
@@ -99,6 +101,12 @@ export class FormUtils {
     const formValue = control.value;
 
     if (formValue === 'hola@mundo.com') return { emailTaken: true };
+    return null;
+  }
+
+  static notStrider(control: AbstractControl): ValidationErrors | null {
+    const formValue = control.value.toLowerCase();
+    if (formValue === 'strider') return { isStrider: true };
     return null;
   }
 }
