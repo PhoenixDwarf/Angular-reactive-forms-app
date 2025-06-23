@@ -22,13 +22,15 @@
 
   <div class="row mb-3">
     <div class="col">
-      <label class="form-label">País:</label>
-      <select formControlName="country" class="form-control">
+      <label for="country" class="form-label">País:</label>
+      <select formControlName="country" class="form-control" id="country">
         <option value="">-- Seleccione País --</option>
 
-        <!-- <option [value]="country.cca3">
-          {{ country.name }}
-        </option> -->
+        @for (country of countriesByRegion(); track country.cca3) {
+        <option [value]="country.cca3">
+          {{ country.name.common }}
+        </option>
+        }
       </select>
     </div>
   </div>
