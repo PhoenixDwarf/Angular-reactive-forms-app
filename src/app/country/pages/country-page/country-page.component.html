@@ -39,12 +39,12 @@
 
   <div class="row mb-3">
     <div class="col">
-      <label class="form-label">Fronteras:</label>
-      <select formControlName="border" class="form-control">
+      <label for="border" class="form-label">Fronteras:</label>
+      <select formControlName="border" class="form-control" id="border">
         <option value="">-- Seleccione la frontera --</option>
 
         @for (border of borders(); track border.cca3) {
-        <option [value]="border">
+        <option [value]="border.cca3">
           {{ border.name.common }}
         </option>
         }
@@ -54,8 +54,5 @@
 </form>
 
 <h3>Formulario</h3>
-<code>
-  <!-- {{ 'myForm.value' | json }} -->
-</code>
 <p>is form valid: {{ myForm.valid }}</p>
 <p>Value: {{ myForm.value | json }}</p>
