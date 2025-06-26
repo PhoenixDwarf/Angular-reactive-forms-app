@@ -27,7 +27,11 @@ export class CountryPageComponent {
 
   onFormChange = effect((onCleanup) => {
     const regionSubscription = this.onRegionChange();
-    onCleanup(() => regionSubscription.unsubscribe());
+    const countrySubscription = this.onCountryChange();
+    onCleanup(() => {
+      regionSubscription.unsubscribe();
+      countrySubscription.unsubscribe();
+    });
   });
 
   onRegionChange(): Subscription {
@@ -44,6 +48,24 @@ export class CountryPageComponent {
       )
       .subscribe((countries) => {
         this.countriesByRegion.set(countries);
+      });
+  }
+
+  onCountryChange(): Subscription {
+    return this.myForm
+      .get('country')!
+      .valueChanges.pipe(
+        tap(() => {
+          this.myForm.get('border')!.setValue('');
+          this.borders.set([]);
+        }),
+        switchMap((code) => this.countryService.getCountryByCode(code ?? '')),
+        switchMap((country) =>
+          this.countryService.getCountryBordersByCodes(country?.borders ?? [])
+        )
+      )
+      .subscribe((borders) => {
+        this.borders.set(borders);
       });
   }
 }
